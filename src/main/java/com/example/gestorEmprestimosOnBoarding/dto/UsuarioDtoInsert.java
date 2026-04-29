@@ -1,7 +1,9 @@
 package com.example.gestorEmprestimosOnBoarding.dto;
 
-import com.example.gestorEmprestimosOnBoarding.domain.Usuario;
+import com.example.gestorEmprestimosOnBoarding.services.validation.UsuarioInsert;
+import com.example.gestorEmprestimosOnBoarding.services.validation.UsuarioUpdator;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -14,8 +16,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@JsonPropertyOrder({"nome", "email", "departamento"})
-public class UsuarioDto implements Serializable {
+@UsuarioInsert
+public class UsuarioDtoInsert implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotEmpty(message = "Preenchimento Obrigatório!")
@@ -23,14 +25,10 @@ public class UsuarioDto implements Serializable {
     private String nome;
 
     @NotEmpty(message = "Preenchimento Obrigatório!")
+    @Email(message = "Email Inválido!")
     private String email;
 
     @NotEmpty(message = "Preenchimento Obrigatório!")
     private String departamento;
 
-    public UsuarioDto(Usuario obj){
-        nome = obj.getNome();
-        email = obj.getEmail();
-        departamento = obj.getDepartamento();
-    }
 }
