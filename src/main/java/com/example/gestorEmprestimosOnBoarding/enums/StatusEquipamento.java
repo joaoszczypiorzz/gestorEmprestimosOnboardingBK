@@ -9,7 +9,7 @@ public enum StatusEquipamento {
 
     DISPONIVEL(1,"DISPONÍVEL"),
     EM_USO(2,"EM_USO"),
-    MANUNTENCAO(3,"MANUNTENÇÃO");
+    MANUTENCAO(3,"MANUTENÇÃO");
 
 
     private int codigo;

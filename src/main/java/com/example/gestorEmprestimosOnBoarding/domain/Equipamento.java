@@ -41,7 +41,7 @@ public class Equipamento implements Serializable {
     private String tipo;
     private String categoria;
 
-    @Enumerated(EnumType.STRING)
+
     private StatusEquipamento status;
 
     @OneToMany(mappedBy = "equipamento")

@@ -1,0 +1,38 @@
+package com.example.gestorEmprestimosOnBoarding.dto;
+
+import com.example.gestorEmprestimosOnBoarding.enums.StatusEquipamento;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+
+import java.io.Serializable;
+
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class EquipamentoDto implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @NotEmpty(message = "Preenchimento Obrigatório!")
+    @Length(min = 4, max = 50, message = "O patrimonio deve ter entre 4 a 50 caracteces")
+    private String patrimonio;
+
+    @NotEmpty(message = "Preenchimento Obrigatório!")
+    @Length(min = 4, max = 100, message = "O nome deve ter entre 4 e 100 caracteres")
+    private String nome;
+
+    @NotEmpty(message = "Preenchimento Obrigatório!")
+    @Length(min = 4, max = 50, message = "O Tipo deve ter entre 4 e 50 caracteres")
+    private String tipo;
+
+    @NotEmpty(message = "Preenchimento Obrigatório!")
+    @Length(min = 4, max = 50)
+    private String categoria;
+
+    @NotEmpty(message = "Preenchimento Obrigatório!")
+    private StatusEquipamento status;
+
+}
