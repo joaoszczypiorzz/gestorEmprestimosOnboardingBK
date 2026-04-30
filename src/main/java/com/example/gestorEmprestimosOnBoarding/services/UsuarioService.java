@@ -4,11 +4,9 @@ import com.example.gestorEmprestimosOnBoarding.domain.Usuario;
 import com.example.gestorEmprestimosOnBoarding.dto.UsuarioDtoInsert;
 import com.example.gestorEmprestimosOnBoarding.dto.UsuarioUpdateDto;
 import com.example.gestorEmprestimosOnBoarding.repositories.UsuarioRepository;
-import com.example.gestorEmprestimosOnBoarding.services.exceptions.DataIntegrityException;
 import com.example.gestorEmprestimosOnBoarding.services.exceptions.ObjNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,11 +37,7 @@ public class UsuarioService {
 
     public void delete(Integer id){
         find(id);
-        try{
-            repo.deleteById(id);
-        }catch (DataIntegrityViolationException e){
-            throw new DataIntegrityException("Não é possivel excluir porque há Pedidos Relacionados");
-        }
+        repo.deleteById(id);
     }
 
     public Usuario update(Usuario obj){

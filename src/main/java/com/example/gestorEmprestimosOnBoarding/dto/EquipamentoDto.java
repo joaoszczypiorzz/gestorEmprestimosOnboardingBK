@@ -1,6 +1,8 @@
 package com.example.gestorEmprestimosOnBoarding.dto;
 
+import com.example.gestorEmprestimosOnBoarding.domain.Equipamento;
 import com.example.gestorEmprestimosOnBoarding.enums.StatusEquipamento;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,8 +15,12 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@JsonPropertyOrder({"id", "patrimonio", "nome", "tipo", "categoria", "status"})
 public class EquipamentoDto implements Serializable {
     private static final long serialVersionUID = 1L;
+
+
+    private Integer id;
 
     @NotEmpty(message = "Preenchimento Obrigatório!")
     @Length(min = 4, max = 50, message = "O patrimonio deve ter entre 4 a 50 caracteces")
@@ -34,5 +40,14 @@ public class EquipamentoDto implements Serializable {
 
     @NotEmpty(message = "Preenchimento Obrigatório!")
     private StatusEquipamento status;
+
+    public EquipamentoDto(Equipamento obj){
+        id = obj.getId();
+        patrimonio = obj.getPatrimonio();
+        nome = obj.getNome();
+        tipo = obj.getTipo();
+        categoria = obj.getCategoria();
+        status = obj.getStatus();
+    }
 
 }
