@@ -9,5 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface UsuarioRepository extends JpaRepository <Usuario, Integer> {
 
     @Transactional(readOnly = true)
-    Usuario findByEmail(String email);
+    boolean existsByEmail(String email);
+
+    @Transactional
+    boolean existsByEmailAndIdNot(String email, Integer id);
 }

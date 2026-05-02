@@ -1,9 +1,9 @@
 package com.example.gestorEmprestimosOnBoarding.dto;
 
-import com.example.gestorEmprestimosOnBoarding.services.validation.UsuarioInsert;
+import com.example.gestorEmprestimosOnBoarding.domain.Usuario;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,13 +13,15 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@UsuarioInsert
-public class UsuarioDtoInsert implements Serializable {
+@NoArgsConstructor
+@JsonPropertyOrder({"id", "nome", "email", "departamento"})
+public class UsuarioDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private Integer id;
+
     @NotEmpty(message = "Preenchimento Obrigatório!")
-    @Length(min = 4,max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres")
+    @Length(min = 4,max = 100, message = "O tamanho deve ser entre 5 e 80 caracteres")
     private String nome;
 
     @NotEmpty(message = "Preenchimento Obrigatório!")
@@ -27,6 +29,13 @@ public class UsuarioDtoInsert implements Serializable {
     private String email;
 
     @NotEmpty(message = "Preenchimento Obrigatório!")
+    @Length(min = 2, max = 100, message = "O tamanho Deve ser entre 5 e 100 Caracteres")
     private String departamento;
 
+    public UsuarioDto(Usuario obj){
+        id = obj.getId();
+        nome = obj.getNome();
+        email = obj.getEmail();
+        departamento = obj.getDepartamento();
+    }
 }
