@@ -3,18 +3,15 @@ package com.example.gestorEmprestimosOnBoarding.domain;
 import com.example.gestorEmprestimosOnBoarding.enums.StatusEquipamento;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,8 +20,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "equipamentos")
+@DynamicInsert
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Equipamento implements Serializable {
     private static final long serialVersionUID = 1L;

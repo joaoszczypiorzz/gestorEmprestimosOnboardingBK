@@ -4,6 +4,7 @@ import com.example.gestorEmprestimosOnBoarding.domain.Equipamento;
 import com.example.gestorEmprestimosOnBoarding.enums.StatusEquipamento;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +39,6 @@ public class EquipamentoDto implements Serializable {
     @Length(min = 4, max = 50)
     private String categoria;
 
-    @NotEmpty(message = "Preenchimento Obrigatório!")
     private StatusEquipamento status;
 
     public EquipamentoDto(Equipamento obj){

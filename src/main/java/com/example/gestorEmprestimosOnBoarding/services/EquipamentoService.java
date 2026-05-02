@@ -7,9 +7,9 @@ import com.example.gestorEmprestimosOnBoarding.services.exceptions.DataIntegrity
 import com.example.gestorEmprestimosOnBoarding.services.exceptions.ObjNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,23 +37,25 @@ public class EquipamentoService {
 
     @Transactional
     public Equipamento insert(Equipamento obj){
-        try{
-            obj.setId(null);
-            obj = repo.save(obj);
-            return obj;
-        } catch (DataIntegrityViolationException e){
-            throw new DataIntegrityException("Violação de Campo Unico!");
+        if(repo.existsByPatrimonio(obj.getPatrimonio())){
+            throw new DataIntegrityException("Patrimonio já cadastrado!");
         }
+
+        obj.setId(null);
+        obj = repo.save(obj);
+        return obj;
     }
 
     public Equipamento update(Equipamento obj){
-        try{
-            Equipamento newObj = find(obj.getId());
-            updateData(newObj,obj);
-            return repo.save(newObj);
-        } catch (DataIntegrityViolationException e){
-            throw new DataIntegrityException("Violação de Campo Unico!");
+        Equipamento newObj = find(obj.getId());
+
+        boolean conflict = repo.existsByPatrimonioAndIdNot(obj.getPatrimonio(),obj.getId());
+        if(conflict){
+            throw new DataIntegrityException("Erro: patrimônio já pertence a outro equipamento cadastrado!");
         }
+
+        updateData(newObj,obj);
+        return repo.save(newObj);
     }
 
     public void updateData(Equipamento newObj, Equipamento objOld){

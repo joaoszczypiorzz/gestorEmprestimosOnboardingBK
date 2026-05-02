@@ -3,6 +3,7 @@ package com.example.gestorEmprestimosOnBoarding.resources;
 import com.example.gestorEmprestimosOnBoarding.domain.Equipamento;
 import com.example.gestorEmprestimosOnBoarding.dto.EquipamentoDto;
 import com.example.gestorEmprestimosOnBoarding.services.EquipamentoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +45,7 @@ public class EquipamentoResource {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody EquipamentoDto objDto){
+    public ResponseEntity<Void> insert(@Valid @RequestBody EquipamentoDto objDto){
         Equipamento obj = service.fromDto(objDto);
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -60,7 +61,7 @@ public class EquipamentoResource {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody EquipamentoDto objDto, @PathVariable Integer id){
+    public ResponseEntity<Void> update(@Valid @RequestBody EquipamentoDto objDto, @PathVariable Integer id){
         Equipamento obj = service.fromDto(objDto);
         obj.setId(id);
         obj = service.update(obj);
