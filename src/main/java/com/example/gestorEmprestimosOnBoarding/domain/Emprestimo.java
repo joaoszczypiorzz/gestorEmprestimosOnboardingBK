@@ -23,6 +23,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity(name = "emprestimos")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -39,11 +40,9 @@ public class Emprestimo implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    @JsonIgnore
     private Usuario user;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "equipamento_id")
     private Equipamento equipamento;
 
@@ -60,13 +59,26 @@ public class Emprestimo implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusEmprestimo status;
 
+    private double multa;
+
     public Emprestimo(Usuario usu, Equipamento equi, LocalDateTime dataEmpre, LocalDate dataDevolucaoPre,
-                     LocalDate dataDevolucaoRea, StatusEmprestimo statusEmprestimo){
+                     LocalDate dataDevolucaoRea, StatusEmprestimo statusEmprestimo, double multas){
         user = usu;
         equipamento = equi;
         dataEmprestimo = dataEmpre;
         dataDevolucaoPrevista = dataDevolucaoPre;
         dataDevolucaoReal = dataDevolucaoRea;
         status = statusEmprestimo;
+        multa = multas;
+    }
+
+    public Integer calcDiasAtraso(){
+        Long diasAtraso = ChronoUnit.DAYS.between(this.dataDevolucaoPrevista,this.dataDevolucaoReal);
+
+        if(diasAtraso < 0){
+            return 0;
+        }
+
+        return Math.toIntExact(diasAtraso);
     }
 }

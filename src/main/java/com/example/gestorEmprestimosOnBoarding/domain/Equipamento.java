@@ -1,6 +1,7 @@
 package com.example.gestorEmprestimosOnBoarding.domain;
 
 import com.example.gestorEmprestimosOnBoarding.enums.StatusEquipamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,6 +45,7 @@ public class Equipamento implements Serializable {
     private StatusEquipamento status;
 
     @OneToMany(mappedBy = "equipamento")
+    @JsonIgnore
     private List<Emprestimo> emprestimos = new ArrayList<>();
 
     public Equipamento(Integer id, String patrimonio, String nome, String tipo, String categoria, StatusEquipamento status) {

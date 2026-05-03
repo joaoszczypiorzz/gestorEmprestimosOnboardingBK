@@ -9,13 +9,12 @@ import com.example.gestorEmprestimosOnBoarding.enums.StatusEquipamento;
 import com.example.gestorEmprestimosOnBoarding.repositories.EmprestimoRepository;
 import com.example.gestorEmprestimosOnBoarding.repositories.EquipamentoRepository;
 import com.example.gestorEmprestimosOnBoarding.repositories.UsuarioRepository;
-import com.example.gestorEmprestimosOnBoarding.resources.EmprestimoResource;
-import com.example.gestorEmprestimosOnBoarding.resources.exceptions.FieldMessage;
 import com.example.gestorEmprestimosOnBoarding.services.exceptions.IllegalEmprestimoState;
 import com.example.gestorEmprestimosOnBoarding.services.exceptions.MultipleObjectsNotFoundException;
 import com.example.gestorEmprestimosOnBoarding.services.exceptions.ObjNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -84,4 +83,20 @@ public class EmprestimoService {
         find(id);
         repo.deleteById(id);
     }
+
+    @Transactional
+    public Emprestimo devolucao(Integer id){
+        Emprestimo emprestimo = find(id);
+
+        emprestimo.setDataDevolucaoReal(LocalDate.now());
+        emprestimo.getEquipamento().setStatus(StatusEquipamento.DISPONIVEL);
+        emprestimo.setStatus(StatusEmprestimo.INATIVO);
+
+        Integer atraso = emprestimo.calcDiasAtraso();
+        emprestimo.setMulta(atraso * 5.00);
+
+        return repo.save(emprestimo);
+    }
+
+
 }

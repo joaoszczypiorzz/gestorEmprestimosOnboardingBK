@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -44,7 +43,7 @@ public class Usuario implements Serializable {
     @JsonIgnore
     private List<Emprestimo> emprestimos;
 
-    public Usuario(Integer id, String nome, String email, String departamento) {
+    public Usuario(Integer id, String nome, String email, String departamento, double multas) {
         this.id = id;
         this.nome = nome;
         this.email = email;
