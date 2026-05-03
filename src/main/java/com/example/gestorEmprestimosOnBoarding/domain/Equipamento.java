@@ -24,6 +24,7 @@ import java.util.List;
 @Entity(name = "equipamentos")
 @DynamicInsert
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@JsonPropertyOrder({"id", "patrimonio", "nome", "tipo", "categoria", "status"})
 public class Equipamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
