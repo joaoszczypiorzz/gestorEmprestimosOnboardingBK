@@ -3,6 +3,7 @@ package com.example.gestorEmprestimosOnBoarding.domain;
 
 import com.example.gestorEmprestimosOnBoarding.enums.StatusEmprestimo;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -17,16 +18,15 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity(name = "emprestimos")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
 @Setter
 public class Emprestimo implements Serializable {
@@ -39,13 +39,16 @@ public class Emprestimo implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @JsonIgnore
+    private Usuario user;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "equipamento_id")
     private Equipamento equipamento;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @CreationTimestamp
     private LocalDateTime dataEmprestimo;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -56,4 +59,14 @@ public class Emprestimo implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private StatusEmprestimo status;
+
+    public Emprestimo(Usuario usu, Equipamento equi, LocalDateTime dataEmpre, LocalDate dataDevolucaoPre,
+                     LocalDate dataDevolucaoRea, StatusEmprestimo statusEmprestimo){
+        user = usu;
+        equipamento = equi;
+        dataEmprestimo = dataEmpre;
+        dataDevolucaoPrevista = dataDevolucaoPre;
+        dataDevolucaoReal = dataDevolucaoRea;
+        status = statusEmprestimo;
+    }
 }

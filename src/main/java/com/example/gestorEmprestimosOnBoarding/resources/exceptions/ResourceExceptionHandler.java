@@ -1,9 +1,10 @@
 package com.example.gestorEmprestimosOnBoarding.resources.exceptions;
 
 import com.example.gestorEmprestimosOnBoarding.services.exceptions.DataIntegrityException;
+import com.example.gestorEmprestimosOnBoarding.services.exceptions.IllegalEmprestimoState;
+import com.example.gestorEmprestimosOnBoarding.services.exceptions.MultipleObjectsNotFoundException;
 import com.example.gestorEmprestimosOnBoarding.services.exceptions.ObjNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -41,4 +42,22 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
+    @ExceptionHandler(IllegalEmprestimoState.class)
+    public ResponseEntity<StandardError> EmprestimoValidation(IllegalEmprestimoState e, HttpServletRequest request){
+
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(),System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(MultipleObjectsNotFoundException.class)
+    public ResponseEntity<ValidationError> multipleObjNotFound(MultipleObjectsNotFoundException e, HttpServletRequest request) {
+
+        ValidationError err = new ValidationError(HttpStatus.NOT_FOUND.value(), "Erro ao realizar Busca", System.currentTimeMillis());
+
+        for (String mensagem : e.getErrors()) {
+            err.addError("id",mensagem);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+    }
 }

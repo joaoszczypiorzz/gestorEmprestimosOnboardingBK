@@ -40,7 +40,7 @@ public class Usuario implements Serializable {
 
     private String departamento;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Emprestimo> emprestimos;
 

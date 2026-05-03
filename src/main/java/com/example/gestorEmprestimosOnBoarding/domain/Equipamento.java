@@ -1,6 +1,7 @@
 package com.example.gestorEmprestimosOnBoarding.domain;
 
 import com.example.gestorEmprestimosOnBoarding.enums.StatusEquipamento;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
