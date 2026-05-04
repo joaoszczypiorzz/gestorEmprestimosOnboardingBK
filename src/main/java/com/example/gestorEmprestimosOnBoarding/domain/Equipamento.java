@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +25,8 @@ import java.util.List;
 @DynamicInsert
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @JsonPropertyOrder({"id", "patrimonio", "nome", "tipo", "categoria", "status"})
-public class Equipamento implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Equipamento {
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

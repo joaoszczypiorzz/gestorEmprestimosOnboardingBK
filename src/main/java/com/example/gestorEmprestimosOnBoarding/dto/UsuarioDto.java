@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-import java.io.Serializable;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @JsonPropertyOrder({"id", "nome", "email", "departamento"})
-public class UsuarioDto implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class UsuarioDto {
+    
 
     private Integer id;
 

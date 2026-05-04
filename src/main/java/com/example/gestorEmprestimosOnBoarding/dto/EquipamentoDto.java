@@ -10,14 +10,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-import java.io.Serializable;
-
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @JsonPropertyOrder({"id", "patrimonio", "nome", "tipo", "categoria", "status"})
-public class EquipamentoDto implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class EquipamentoDto {
+    
 
 
     private Integer id;

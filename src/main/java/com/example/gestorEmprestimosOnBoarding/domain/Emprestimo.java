@@ -3,7 +3,6 @@ package com.example.gestorEmprestimosOnBoarding.domain;
 
 import com.example.gestorEmprestimosOnBoarding.enums.StatusEmprestimo;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,15 +11,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -30,8 +26,8 @@ import java.time.temporal.ChronoUnit;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Emprestimo implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Emprestimo {
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

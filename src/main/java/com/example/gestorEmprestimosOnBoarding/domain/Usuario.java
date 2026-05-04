@@ -14,7 +14,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -23,8 +22,8 @@ import java.util.List;
 @Entity(name = "usuarios")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
-public class Usuario implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Usuario {
+    
 
     @EqualsAndHashCode.Include
     @Id

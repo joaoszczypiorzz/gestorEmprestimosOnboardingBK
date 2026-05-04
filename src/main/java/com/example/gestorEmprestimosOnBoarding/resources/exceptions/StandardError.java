@@ -4,13 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 @Getter
 @Setter
 @AllArgsConstructor
-public class StandardError implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class StandardError {
+    
 
     private Integer status;
     private String mensagem;

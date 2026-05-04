@@ -1,6 +1,5 @@
 package com.example.gestorEmprestimosOnBoarding.services.exceptions;
 
-import com.example.gestorEmprestimosOnBoarding.resources.exceptions.FieldMessage;
 import lombok.Getter;
 
 import java.util.ArrayList;
