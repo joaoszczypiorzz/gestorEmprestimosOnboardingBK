@@ -17,13 +17,13 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository repo;
 
-    public Usuario find(Integer id){
+    public Usuario find(Integer id) throws ObjNotFoundException{
         Optional<Usuario> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjNotFoundException(
                 "Id informado inválido ou inexistente!"));
     }
 
-    public void delete(Integer id){
+    public void delete(Integer id) throws ObjNotFoundException{
         find(id);
         repo.deleteById(id);
     }
@@ -32,7 +32,7 @@ public class UsuarioService {
         return repo.findAll();
     }
 
-    public Usuario insert(Usuario obj){
+    public Usuario insert(Usuario obj) throws DataIntegrityException{
         if(repo.existsByEmail(obj.getEmail())){
             throw new DataIntegrityException("Erro: E-mail já cadastrado no sistema!");
         }
@@ -42,7 +42,7 @@ public class UsuarioService {
         return obj;
     }
 
-    public Usuario update(Usuario obj){
+    public Usuario update(Usuario obj) throws ObjNotFoundException, DataIntegrityException{
         Usuario newObj = find(obj.getId());
 
         boolean conflict = repo.existsByEmailAndIdNot(obj.getEmail(),obj.getId());

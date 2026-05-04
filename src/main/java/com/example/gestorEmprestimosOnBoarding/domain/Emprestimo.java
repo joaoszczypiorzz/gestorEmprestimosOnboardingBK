@@ -50,7 +50,7 @@ public class Emprestimo {
     private LocalDate dataDevolucaoPrevista;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataDevolucaoReal;
+    private LocalDateTime dataDevolucaoReal;
 
     @Enumerated(EnumType.STRING)
     private StatusEmprestimo status;
@@ -58,7 +58,7 @@ public class Emprestimo {
     private double multa;
 
     public Emprestimo(Usuario usu, Equipamento equi, LocalDateTime dataEmpre, LocalDate dataDevolucaoPre,
-                     LocalDate dataDevolucaoRea, StatusEmprestimo statusEmprestimo, double multas){
+                     LocalDateTime dataDevolucaoRea, StatusEmprestimo statusEmprestimo, double multas){
         user = usu;
         equipamento = equi;
         dataEmprestimo = dataEmpre;

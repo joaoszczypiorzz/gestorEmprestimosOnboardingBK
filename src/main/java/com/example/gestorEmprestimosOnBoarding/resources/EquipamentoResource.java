@@ -2,6 +2,7 @@ package com.example.gestorEmprestimosOnBoarding.resources;
 
 import com.example.gestorEmprestimosOnBoarding.domain.Equipamento;
 import com.example.gestorEmprestimosOnBoarding.dto.EquipamentoDto;
+import com.example.gestorEmprestimosOnBoarding.resources.doc.EquipamentoResourceDoc;
 import com.example.gestorEmprestimosOnBoarding.services.EquipamentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/equipamentos")
-public class EquipamentoResource {
+public class EquipamentoResource implements EquipamentoResourceDoc {
 
     @Autowired
     private EquipamentoService service;

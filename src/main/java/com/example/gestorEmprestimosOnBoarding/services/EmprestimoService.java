@@ -73,7 +73,7 @@ public class EmprestimoService {
         return repo.findAll();
     }
 
-    public Emprestimo find(Integer id){
+    public Emprestimo find(Integer id) throws ObjNotFoundException{
         Optional<Emprestimo> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjNotFoundException(
                 "Id informado inválido ou inexistente!"));
@@ -85,10 +85,10 @@ public class EmprestimoService {
     }
 
     @Transactional
-    public Emprestimo devolucao(Integer id){
+    public Emprestimo devolucao(Integer id) throws ObjNotFoundException{
         Emprestimo emprestimo = find(id);
 
-        emprestimo.setDataDevolucaoReal(LocalDate.now());
+        emprestimo.setDataDevolucaoReal(LocalDateTime.now());
         emprestimo.getEquipamento().setStatus(StatusEquipamento.DISPONIVEL);
         emprestimo.setStatus(StatusEmprestimo.INATIVO);
 
