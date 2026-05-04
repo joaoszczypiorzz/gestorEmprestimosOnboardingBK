@@ -4,6 +4,8 @@ import com.example.gestorEmprestimosOnBoarding.domain.Equipamento;
 import com.example.gestorEmprestimosOnBoarding.dto.EquipamentoDto;
 import com.example.gestorEmprestimosOnBoarding.resources.doc.EquipamentoResourceDoc;
 import com.example.gestorEmprestimosOnBoarding.services.EquipamentoService;
+import com.example.gestorEmprestimosOnBoarding.services.exceptions.DataIntegrityException;
+import com.example.gestorEmprestimosOnBoarding.services.exceptions.ObjNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,7 @@ public class EquipamentoResource implements EquipamentoResourceDoc {
 
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ResponseEntity<EquipamentoDto> find(@PathVariable Integer id){
+    public ResponseEntity<EquipamentoDto> find(@PathVariable Integer id) throws ObjNotFoundException {
         Equipamento obj = service.find(id);
         EquipamentoDto objDto = new EquipamentoDto(obj);
         return ResponseEntity.ok().body(objDto);
@@ -46,7 +48,7 @@ public class EquipamentoResource implements EquipamentoResourceDoc {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody EquipamentoDto objDto){
+    public ResponseEntity<Void> insert(@Valid @RequestBody EquipamentoDto objDto) throws DataIntegrityException {
         Equipamento obj = service.fromDto(objDto);
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -55,14 +57,14 @@ public class EquipamentoResource implements EquipamentoResourceDoc {
     }
 
     @RequestMapping(value = "{id}",method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
+    public ResponseEntity<Void> delete(@PathVariable Integer id) throws ObjNotFoundException{
         service.delete(id);
 
         return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@Valid @RequestBody EquipamentoDto objDto, @PathVariable Integer id){
+    public ResponseEntity<Void> update(@Valid @RequestBody EquipamentoDto objDto, @PathVariable Integer id) throws DataIntegrityException,ObjNotFoundException{
         Equipamento obj = service.fromDto(objDto);
         obj.setId(id);
         obj = service.update(obj);

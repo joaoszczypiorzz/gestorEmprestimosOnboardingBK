@@ -19,12 +19,12 @@ public class EquipamentoService {
     private EquipamentoRepository repo;
 
 
-    public void delete(Integer id){
+    public void delete(Integer id) throws ObjNotFoundException{
         find(id);
         repo.deleteById(id);
     }
 
-    public Equipamento find(Integer id){
+    public Equipamento find(Integer id) throws ObjNotFoundException{
         Optional<Equipamento> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjNotFoundException(
                 "Id informado inválido ou inexistente!"));
@@ -35,7 +35,7 @@ public class EquipamentoService {
     }
 
     @Transactional
-    public Equipamento insert(Equipamento obj){
+    public Equipamento insert(Equipamento obj) throws DataIntegrityException{
         if(repo.existsByPatrimonio(obj.getPatrimonio())){
             throw new DataIntegrityException("Patrimonio já cadastrado!");
         }
@@ -45,7 +45,7 @@ public class EquipamentoService {
         return obj;
     }
 
-    public Equipamento update(Equipamento obj){
+    public Equipamento update(Equipamento obj) throws DataIntegrityException,ObjNotFoundException{
         Equipamento newObj = find(obj.getId());
 
         boolean conflict = repo.existsByPatrimonioAndIdNot(obj.getPatrimonio(),obj.getId());
