@@ -1,5 +1,6 @@
 package com.example.gestorEmprestimosOnBoarding.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,6 +14,7 @@ public enum StatusEquipamento {
 
 
     private int codigo;
+    @JsonValue
     private String descricao;
 
     public static StatusEquipamento toEnum(Integer cod){
